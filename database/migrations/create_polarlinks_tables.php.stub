@@ -43,7 +43,7 @@ class CreatePolarlinksTables extends Migration
      */
 
      public function down() {
-         Schema::drop('linksections');
-         Schema::drop('links');
+         Schema::drop(config('polarlinks.sections_table'));
+         Schema::drop(config('polarlinks.links_table'));
      }
 }
