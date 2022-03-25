@@ -110,9 +110,9 @@ LinkSection::name('mainmenu_links')
 
 This will return all the links associated (and their data) with the section as a json array string. The format parameter accepts 3 options:
 
-    * 'collection' - Returns the links as an Eloquent\Collection
-    * 'array' - Returns the links as a PHP array
-    * 'json' - Returns the links as a json array string
+* 'collection' - Returns the links as an Eloquent\Collection
+* 'array' - Returns the links as a PHP array
+* 'json' - Returns the links as a json array string
 
 ```php
 function create() : LinkSection
