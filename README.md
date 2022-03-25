@@ -8,8 +8,8 @@ PolarLinks provides a unified place to administer site wide hyperlinks for conte
 
 ## Requirements
 
-Laravel 8.*
-PHP 8.*
+* Laravel 8.*
+* PHP 8.*
 
 ## Installation
 
@@ -60,37 +60,42 @@ PolarLink::name('a_name')
 
 The last callable function on the class is always an operation. The available function operations for the PolarLink::class are:
 
-**get()** : Link
-Returns a single eloquent link model, or *null* if the link was not found in the database table, using the provided name.
+```php
+function get() : Link
+// Returns a single eloquent link model, or *null* if the link was not found in the database table, using the provided name.
 
-**create()** : Link
-Inserts a new link with the provided name as an identifier and any optional data. Returns a single eloquent link model after creation.
+function create() : Link
+// Inserts a new link with the provided name as an identifier and any optional data. Returns a single eloquent link model after creation.
 
-**update()** : Link
-Updates a link with the provided name as an identifier and any optional data. Returns a single eloquent link model after updating or a *null* value if no model was found in the database with the provided name.
+function update() : Link
+// Updates a link with the provided name as an identifier and any optional data. Returns a single eloquent link model after updating or a *null* value if no model was found in the database with the provided name.
 
-**delete()** : void
-Deletes a link with the provided name as an identifier.
+function delete() : void
+// Deletes a link with the provided name as an identifier.
 
-**newName(string *$newName*)** : Link
-Renames the link with a new identifier, returns Link eloquent model if successful or *null* if no link where found
+function newName(string $newName) : Link
+// Renames the link with a new identifier, returns Link eloquent model if successful or *null* if no link where found
+```
 
-*PolarLink::class* also has the following static utility functions (do not rely on using the static name function):
+PolarLink::class also has the following static utility functions (do not rely on using the static name function):
 
-**checkifExists(string *$linkName*)** : bool
-Check if the link with the provided name exists in the database. Returns true or false depending on the result
+```php
+function checkifExists(string $linkName) : bool
+// Check if the link with the provided name exists in the database. Returns true or false depending on the result
 
-**testUrl(string *$url*)** : bool
-Check if the string passed validates as a URL or relative internal site path. Returns true or false depending on the result
+function testUrl(string $url) : bool
+// Check if the string passed validates as a URL or relative internal site path. Returns true or false depending on the result
 
-**testName(string *$name*)** : bool
-Check if the string passed validates as a Link identifier. Returns true or false depending on the result
-
+function testName(string $name) : bool
+// Check if the string passed validates as a Link identifier. Returns true or false depending on the result
+```
 ### PolarSection
 
 The PolarSection class provides means to categorize and sort your links and is defined as a one-to-many relationship between the LinkSection-Link eloquent models. Besides the usual CRUD routines, it also lets you retrieve link collections as either Elequent\Collection, PHP array, or JSON string.
 
-**get()** : LinkSection
+```php
+function get() : LinkSection
+```
 Returns a single eloquent linksection model, or *null* if the linksection was not found in the database table, using the provided name.
 
 If the linksection has one or more child link models, you can retrieve this as either Elequent\Collection, array or json by using the *load()* function and passing the options as an array. For example:
@@ -105,35 +110,39 @@ LinkSection::name('mainmenu_links')
 
 This will return all the links associated (and their data) with the section as a json array string. The format parameter accepts 3 options:
 
-    * 'collection' - Returns the links as an Eloquent\Collection
-    * 'array' - Returns the links as a PHP array
-    * 'json' - Returns the links as a json array string
+* 'collection' - Returns the links as an Eloquent\Collection
+* 'array' - Returns the links as a PHP array
+* 'json' - Returns the links as a json array string
 
-**create()** : LinkSection
-Inserts a new linksection with the provided name as an identifier. Returns a single eloquent linksection model after creation.
+```php
+function create() : LinkSection
+// Inserts a new linksection with the provided name as an identifier. Returns a single eloquent linksection model after creation.
 
-**delete(bool *$purgeLinks = false*)** : void
-Deletes a linksection with the provided name as an identifier. If the passed *$purgeLinks* parameter is true, it will also delete any associated links. If the parameter is false (default), it will only dissassociate the model relationship and leave the links associated with the section intact in the database.
+function delete(bool $purgeLinks = false) : void
+// Deletes a linksection with the provided name as an identifier. If the passed *$purgeLinks* parameter is true, it will also delete any associated links. If the parameter is false (default), it will only dissassociate the model relationship and leave the links associated with the section intact in the database.
 
-**attach(Link *$polarLink*)** : void
-Attaches a Link model to the Section, with the provided name.
+function attach(Link $polarLink) : void
+// Attaches a Link model to the Section, with the provided name.
 
-**attachMore(Collection *$polarLinkEloquentCollection*)** : void
-Attaches an Eloquent collection of Link models with the provided Section name.
+function attachMore(Collection $polarLinkEloquentCollection) : void
+// Attaches an Eloquent collection of Link models with the provided Section name.
 
-**empty()** : void
-Dissassociates all links in the section
+function empty() : void
+// Dissassociates all links in the section
 
-**purge()** : void
-Deletes all links in the section
+function purge() : void
+// Deletes all links in the section
 
-**newName(string *$newNameIdentifier*)** : void
-Renames the linksection with a new identifier, given the old name. 
+function newName(string $newNameIdentifier) : void
+// Renames the linksection with a new identifier, given the old name. 
+```
 
-*PolarSection::class* also has the following static utility functions (do not rely on using the static name function):
+PolarSection::class also has the following static utility functions (do not rely on using the static name function):
 
-**checkifExists(string *$linkSectionName*)** : bool
-Check if the linksection with the provided parameter name exists in the database. Returns true or false depending on the result
+```php
+checkifExists(string $linkSectionName) : bool
+// Check if the linksection with the provided parameter name exists in the database. Returns true or false depending on the result
+```
 
 ## Testing
 ``` bash
