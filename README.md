@@ -8,8 +8,8 @@ PolarLinks provides a unified place to administer site wide hyperlinks for conte
 
 ## Requirements
 
-* Laravel 8.*
-* PHP 8.*
+* Laravel >= 8.*
+* PHP >= 8.*
 
 ## Installation
 
