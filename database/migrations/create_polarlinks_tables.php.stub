@@ -1,0 +1,49 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Migrations\Migrator;
+
+class CreatePolarlinksTables extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up() {
+        Schema::create(config('polarlinks.sections_table'), function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name', 125)->nullable(false);
+            $table->timestamps();
+
+            $table->unique(['name']);
+        });
+
+        Schema::create(config('polarlinks.links_table'), function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('title', 225)->nullable(true );
+            $table->string('name', 125)->nullable(false);
+            $table->integer('weight')->default(1);
+            $table->string('url')->nullable(true);
+            $table->text('description')->nullable(true);
+            $table->boolean('published')->default(false)->nullable(false);
+            $table->unsignedBigInteger('linksections_id')->nullable(true);
+            $table->timestamps();
+
+            $table->unique(['name']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+
+     public function down() {
+         Schema::drop('linksections');
+         Schema::drop('links');
+     }
+}

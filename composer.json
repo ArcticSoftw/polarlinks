@@ -1,0 +1,48 @@
+{
+  "name":		"arcticsoftware/polarlinks",
+  "description":	"A simple hyperlink management CRUD API",
+  "keywords": [
+    "arcticsoftware",
+    "laravel",
+    "hyperlinks",
+    "links",
+    "contentmanagement"
+],
+  "version": "1.0.0-dev",
+  "type":		"library",
+  "license":		"MIT",
+  "authors": [
+    {
+	    "name":		"Helge-Mikael Nordgård",
+	    "email":	"helge-mikael.nordgard@arcticsoftware.no",
+      "homepage": "https://arcticsoftware.no",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+      "psr-4": {
+	    "ArcticSoftware\\PolarLinks\\":		"src",
+      "ArcticSoftware\\PolarLinks\\Tests\\": "tests",
+      "ArcticSoftware\\PolarLinks\\Database\\Factories\\": "database/factories"
+    }
+  },
+  "scripts": {
+    "test":   "vendor/bin/phpunit",
+    "test-f": "vendor/bin/phpunit --filter"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5.10",
+    "orchestra/testbench": "8.0.x-dev"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "ArcticSoftware\\PolarLinks\\PolarLinksServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "require": {
+      "php": "^8.0.2"
+  }
+}
