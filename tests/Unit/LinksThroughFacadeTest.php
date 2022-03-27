@@ -4,7 +4,9 @@ namespace ArcticSoftware\PolarLinks\Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use ArcticSoftware\PolarLinks\Facades\PolarLink;
+use ArcticSoftware\PolarLinks\Models\Link;
 use ArcticSoftware\PolarLinks\Tests\TestCase;
+use ArcticSoftware\PolarLinks\Tests\User;
 use ArcticSoftware\PolarLinks\Exceptions\PolarLinkExceptions;
 
 class LinksThroughFacadeTest extends TestCase
@@ -29,6 +31,32 @@ class LinksThroughFacadeTest extends TestCase
         $this->assertEquals('http://www.arcticsoftware.no', PolarLink::name('a_name')->get()->url, "Check if URL value of record is 'http://www.arcticsoftware.no'");
         $this->assertEquals('A longer description of the link', PolarLink::name('a_name')->get()->description, "Check if description value of record is 'A longer description of the link'");
         $this->assertEquals(1, PolarLink::name('a_name')->get()->published, "Check if published value of record is 1 (and thus true)");
+    }
+
+    /** @test */
+    function test_link_creation_with_author_type() {
+        $link = Link::factory()->create([
+            'name'          => 'a_name',
+            'author_type'   => 'Fake\User'
+        ]);
+
+        $this->assertEquals('Fake\User', $link->author_type);
+    }
+
+    /** @test */
+    function test_that_a_link_belongs_to_user() {
+        $author = User::factory()->create();
+        $author->links()->create([
+            'name'  => 'a_name'
+        ]);
+
+        $this->assertCount(1, Link::all());
+        $this->assertCount(1, $author->links);
+
+        tap($author->links()->first(), function ($link) use ($author) {
+            $this->assertEquals('a_name', $link->name);
+            $this->assertTrue($link->author->is($author));
+        });
     }
 
     /** @test */

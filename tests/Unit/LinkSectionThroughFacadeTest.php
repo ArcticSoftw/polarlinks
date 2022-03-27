@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use ArcticSoftware\PolarLinks\Facades\PolarSection;
 use ArcticSoftware\PolarLinks\Facades\PolarLink;
 use ArcticSoftware\PolarLinks\Tests\TestCase;
+use ArcticSoftware\PolarLinks\Tests\User;
 use ArcticSoftware\PolarLinks\Exceptions\PolarLinkSectionExceptions;
 use ArcticSoftware\PolarLinks\Models\LinkSection;
 use ArcticSoftware\PolarLinks\Models\Link;
@@ -37,6 +38,32 @@ class LinkSectionThroughFacadeTest extends TestCase
         $this->expectException(PolarLinkSectionExceptions::class);
         PolarSection::name('a_section')
             ->create();
+    }
+
+    /** @test */
+    function test_linksection_creation_with_author_type() {
+        $section = LinkSection::factory()->create([
+            'name'          => 'a_name',
+            'author_type'   => 'Fake\User'
+        ]);
+
+        $this->assertEquals('Fake\User', $section->author_type);
+    }
+
+    /** @test */
+    function test_that_a_linksection_belongs_to_user() {
+        $author = User::factory()->create();
+        $author->linkSections()->create([
+            'name'  => 'a_name'
+        ]);
+
+        $this->assertCount(1, LinkSection::all());
+        $this->assertCount(1, $author->linkSections);
+
+        tap($author->linkSections()->first(), function ($section) use ($author) {
+            $this->assertEquals('a_name', $section->name);
+            $this->assertTrue($section->author->is($author));
+        });
     }
 
     /** @test */

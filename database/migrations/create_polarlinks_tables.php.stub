@@ -16,6 +16,8 @@ class CreatePolarlinksTables extends Migration
         Schema::create(config('polarlinks.sections_table'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 125)->nullable(false);
+            $table->unsignedBigInteger('author_id')->nullable(true);
+            $table->string('author_type')->nullable(true);
             $table->timestamps();
 
             $table->unique(['name']);
@@ -30,6 +32,8 @@ class CreatePolarlinksTables extends Migration
             $table->text('description')->nullable(true);
             $table->boolean('published')->default(false)->nullable(false);
             $table->unsignedBigInteger('linksections_id')->nullable(true);
+            $table->unsignedBigInteger('author_id')->nullable(true);
+            $table->string('author_type')->nullable(true);
             $table->timestamps();
 
             $table->unique(['name']);

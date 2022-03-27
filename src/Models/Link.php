@@ -23,4 +23,8 @@ class Link extends Model
     public function linkSection() {
         return $this->belongsTo(LinkSection::class, 'linksections_id');
     }
+
+    public function author() {
+        return $this->morphTo();
+    }
 }
