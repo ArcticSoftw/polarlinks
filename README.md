@@ -144,6 +144,38 @@ checkifExists(string $linkSectionName) : bool
 // Check if the linksection with the provided parameter name exists in the database. Returns true or false depending on the result
 ```
 
+### Authorship binding
+
+Both Link and LinkSection models can have a polymorphic relationship with your User (or any other model) to define authorship of the data. This can be implemented by giving your model(s) the neccessary traits to associate them with either/both of these two:
+
+**Example implementation in the User model:**
+```php
+namespace App\Models;
+
+use ArcticSoftware\PolarLinks\Traits\HasLinks;
+use ArcticSoftware\PolarLinks\Traits\HasLinkSections;
+
+class User extends Authenticatable implements MustVerifyEmail
+{
+    use HasLinks, HasLinkSections;
+    
+}
+```
+
+The relationship can now be accessed with eloquent through:
+
+```php
+$author->links();
+```
+
+or
+
+```php
+$author->linkSections();
+```
+
+respectively
+
 ## Testing
 ``` bash
 composer test
