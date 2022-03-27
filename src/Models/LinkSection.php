@@ -23,4 +23,8 @@ class LinkSection extends Model
     public function links() {
         return $this->hasMany(Link::class, 'linksections_id');
     }
+
+    public function author() {
+        return $this->morphTo();
+    }
 }
