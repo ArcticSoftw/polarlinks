@@ -31,6 +31,22 @@ class LinkSectionThroughFacadeTest extends TestCase
     }
 
     /** @test */
+    function test_facade_linksection_array_retrieval() {
+        $sections = LinkSection::factory()->count(2)->create();
+        // Test if record is created by checking that linksection exists by getting link ORM database and matching id with 1. Using array load options
+        $value1 = PolarSection::name($sections[0]->name)
+            ->load(['format' => 'array'])
+            ->get();
+
+        $value2 = PolarSection::name($sections[1]->name)
+            ->load(['format' => 'array'])
+            ->get();
+            
+        $this->assertTrue(is_array($value1));
+        $this->assertTrue(is_array($value2));
+    }
+
+    /** @test */
     function test_fascade_linksection_creation_when_duplicate() {
         PolarSection::name('a_section')
             ->create();

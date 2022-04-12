@@ -72,7 +72,7 @@ class PolarSection
         return true;
     }
 
-    public function get(): LinkSection {
+    public function get() {
         $this->checkValidName();
         if (!$this->checkIfExists($this->instance->name))
             throw PolarLinkSectionExceptions::noResultsReturned();
