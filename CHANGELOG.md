@@ -1,3 +1,6 @@
+### 1.1.1
+Fixed bug where LinkCollection::get return type was locked to collection
+
 ## 1.1.0
 Added polymorphic properties to both LinkSections and Link, so another model can own either of those (typical User model) in a one to many relationship. Added needed traits that other models can implement to facilitate this
 
